@@ -367,5 +367,9 @@ def pagina_historico():
 
 
 if __name__ == "__main__":
-    threading.Timer(1.5, lambda: webbrowser.open("http://127.0.0.1:3030")).start()
+    if "gunicorn" not in os.environ.get("SERVER_SOFTWARE", ""):
+        import threading
+        import webbrowser
+        threading.Timer(1.5, lambda: webbrowser.open("http://127.0.0.1:3030")).start()
+
     app.run(port=3030, debug=True, use_reloader=False)
